@@ -1,6 +1,8 @@
 package org.reda.ebankservice.controller;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.reda.ebankservice.entities.BankAccount;
+import org.reda.ebankservice.model.Customer;
 import org.reda.ebankservice.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,4 +39,6 @@ public class BankAccountController {
         bankAccount.setCreatedAt(new Date());
         return bankAccountService.saveBankAccount(bankAccount);
     }
+
 }
+
