@@ -2,6 +2,7 @@ package org.reda.customerservice.controller;
 
 import org.reda.customerservice.entity.Customer;
 import org.reda.customerservice.repositories.CustomerRepo;
+import org.reda.customerservice.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,22 +10,22 @@ import java.util.List;
 @RestController
 public class CustomerController {
 
-    private final CustomerRepo customerRepo;
+    private final CustomerService customerService;
 
-    public CustomerController(CustomerRepo customerRepo) {
-        this.customerRepo = customerRepo;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
     @GetMapping("/customers/{id}")
     public Customer getOneCustomer(@PathVariable int id) {
-        return customerRepo.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
+        return customerService.getOneCustomer(id);
     }
     @GetMapping("/customers")
     public List<Customer> getAllCustomers() {
-        return customerRepo.findAll();
+        return customerService.getAllCustomers();
     }
 
     @PostMapping("/customers")
     public void saveCustomer(Customer customer) {
-        customerRepo.save(customer);
+        customerService.saveCustomer(customer);
     }
 }
